@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spaceinvaders</title>
+        <link rel="stylesheet" type="text/css" href="css/typeography.css">
+        <link rel="stylesheet" type="text/css" href="css/core.css">
+        <style>
+            html,body {
+                width:100%;
+                height:100%;
+                margin:0px;
+                padding:0px;
+                overflow:hidden;
+            }
+
+            #starfield {
+                width:100%;
+                height:100%;
+                z-index:-1;
+                position:absolute;
+                left:0px;
+                top:0px;
+            }
+
+            #gamecontainer {
+                width:800px;
+                margin-left:auto;
+                margin-right:auto;
+            }
+
+            #gameCanvas {
+                width:800px;
+                height:600px;
+            }
+
+            /* spaceinvaders styles  */
+
+        </style>
+
+    </head>
+
+    <body>
+        <div id="starfield">
+            <div id="gamecontainer">
+                <canvas id="gameCanvas"></canvas>
+            </div>
+            <script src="js/starfield.js"></script>
+            <script src="js/spaceinvaders.js"></script>
+            <script>
+                var container = document.getElementById('starfield');
+                var starfield = new Starfield();
+                starfield.initialise(container);
+                starfield.start();
+
+                // setup the canvas
+                var canvas = document.getElementById('gameCanvas');
+                canvas.width=800;
+                canvas.height=600;
+
+                var game = new Game();
+
+                game.initialise(canvas);
+
+                game.start();
+
+                window.addEventListener("keyDown", function keyDown(e) {
+                    var keyCode = e.which || window.event.keycode;
+                    
+                    if(keyCode == 37 || keyCode == 39 || keyCode == 32) {
+                        e.preventDefault();
+                    }
+                    game.keyDown(keyCode);
+                });
+
+                window.addEventlistener("keyUp", function keyUp(e) {
+                    var keyCode = e.which || window.event.keyCode;
+                    game.keyUp(keyCode);
+                });
+
+            </script>
+            <script type="application/javascript"></script>
+
+        </div>
+    </body>
+</html>
